@@ -2436,11 +2436,22 @@
       }
     })();
 
-    /* ─── Contact form ─────────────────────────── */
+    /* ─── Contact form → WhatsApp ─────────────── */
     const contactForm = document.getElementById('contactForm');
     const formSuccess = document.getElementById('formSuccess');
     contactForm.addEventListener('submit', e => {
       e.preventDefault();
+      const name    = (contactForm.querySelector('[name="name"]').value || '').trim();
+      const phone   = (contactForm.querySelector('[name="phone"]').value || '').trim();
+      const message = (contactForm.querySelector('[name="message"]').value || '').trim();
+      const text = [
+        'Hello! I found you on your website.',
+        name    ? 'Name: ' + name       : '',
+        phone   ? 'Phone: ' + phone     : '',
+        message ? 'Message: ' + message : ''
+      ].filter(Boolean).join('\n');
+      const waUrl = 'https://wa.me/919713943095?text=' + encodeURIComponent(text);
+      window.open(waUrl, '_blank', 'noopener,noreferrer');
       contactForm.style.display = 'none';
       formSuccess.classList.add('show');
     });
